@@ -80,3 +80,17 @@ function foundComboOfOneCard3(card,arr){               // second parameter would
     return result 
 }
 
+function shkobba(obj){
+   if(obj.jarya !== 0 && obj.table.length === 0){
+    if(obj.player.playerTurn){
+      obj.player.score++
+    }
+    else if(obj.computer.playerTurn){
+      obj.computer.score++
+    }
+   }
+}
+
+function injectCards(obj){
+                                                    //
+}

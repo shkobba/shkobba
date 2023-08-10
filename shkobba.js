@@ -39,15 +39,15 @@ pickRandom = function(){
     var randomCard = []
     for(var i = 0; i < 40; i++){
         randomPick =  Math.floor(Math.random() * n)
-        console.log(randomPick);
         randomCard.push(arr[randomPick])
-        console.log(arr[randomPick])
         n = n - 1
         arr.splice(randomPick,1)
     }
     return randomCard
 }
-$("start").click(function(){
+ var gameGenerate = {}
+//$("#start").click(function(){
+    function test(){
     var game1 = Game()
     game1.allCards = pickRandom()
     game1.player.kaf = game1.allCards.slice(0,3)
@@ -56,6 +56,7 @@ $("start").click(function(){
     game1.allCards.splice(0,4)
     game1.computer.kaf = game1.allCards.slice(0,3)
     game1.allCards.splice(0,3)
-    game1.computerKaf.playerTurn = false
+    game1.computer.playerTurn = false
+        Object.assign(gameGenerate,game1)
+}
 
-})
