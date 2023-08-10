@@ -22,25 +22,40 @@ function Player(){
 }
 function Game(){
     var game = {}
-    game.table = []               // array fih li fo9 tawla when he get empty shkobba to the true player
+    game.table = []                // array fih li fo9 tawla when he get empty shkobba to the true player
     game.player = Player()         // array yetbaddel kol mayefragh kol jarya
-    game.computerKaf = Player()    // jarya toufa ki ykammel lcomputer 
-    game.allCards = []             // feha carta machkya jarya loula ta3ty 3 lel player w arb3a fetawla w 3 lel computer
-    game.computerTurn = false      // ki yon9es kaf player ka3ba twali true ki l3aks tarja3 false
+    game.computer = Player()       // jarya toufa ki ykammel lcomputer 
+    game.allCards = []             // feha carta machkya jarya loula ta3ty 3 lel player w arb3a fetawla w 3 lel computer                            
     game.jarya = 0                 // ki yefragh kaf lcomputer tetzed 1
     game.end = false               // ki yefregh tablou twalli true 
     
     return  game    
 }
-pickRandom = function(cards){
+
+pickRandom = function(){
+    var n = cards.length
     var arr = []
-    for(var i = 0; i < cards.length; i++){
-       var n = cards.length
+    Object.assign(arr,cards)
+    var randomCard = []
+    for(var i = 0; i < 40; i++){
         randomPick =  Math.floor(Math.random() * n)
-        arr.push(cards[randomPick])
+        console.log(randomPick);
+        randomCard.push(arr[randomPick])
+        console.log(arr[randomPick])
         n = n - 1
+        arr.splice(randomPick,1)
     }
-
-
-
+    return randomCard
 }
+$("start").click(function(){
+    var game1 = Game()
+    game1.allCards = pickRandom()
+    game1.player.kaf = game1.allCards.slice(0,3)
+    game1.allCards.splice(0,3)
+    game1.table = game1.allCards.slice(0,4)
+    game1.allCards.splice(0,4)
+    game1.computer.kaf = game1.allCards.slice(0,3)
+    game1.allCards.splice(0,3)
+    game1.computerKaf.playerTurn = false
+
+})

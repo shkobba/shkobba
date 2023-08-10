@@ -39,25 +39,34 @@ function eachCardReduce(kaf,table){
     return result
 }
 function foundComboOfOneCard3(card,arr){               // second parameter would take the output of eachCardReduce
+  if(arr.includes(card)){
+    return [card]
+  }
+    arr.push(0)
+    var x = 0
     var combo = []
     var result = []
     for(var i = 0; i < arr.length - 1; i++){
         for(var j = i+1; j < arr.length; j++){
             for(var l = j+1; l < arr.length; l++){
-                if(card.num === arr[i] + arr[j] +arr[l]){
+                
+                if(card === arr[i] + arr[j] +arr[l] && x !== arr[i] + arr[j] +arr[l]){
+                    x = arr[i] + arr[j] +arr[l]
                     combo.push(arr[i])
                     combo.push(arr[j])                                   /* mahyech mrigla barcha */
                     combo.push(arr[l])
                     result.push(combo)
                     combo = []
                 }
-                else if(card.num === arr[i] + arr[j]){
+                else if(card === arr[i] + arr[j] && x !== arr[i] + arr[j]){
+                    x = arr[i] + arr[j]
                     combo.push(arr[i])
                     combo.push(arr[j])
                     result.push(combo)
                     combo = []
                 }
-                else if(card.num === arr[i]){
+                else if(card === arr[i] && x !== arr[i]){
+                    x = arr[i]
                     combo.push(arr[i])
                     combo.push(arr[j])
                     result.push(combo)
