@@ -3,6 +3,7 @@ body{
     background-repeat: no-repeat;
     background-size: cover;
     height: 150vh;
+
 }
 .navbar {
     text-align: center ;
@@ -10,6 +11,8 @@ body{
     width: 50%;
     border: 3px ;
     padding: 10px;
+
+    
     
   }
  
@@ -23,7 +26,7 @@ body{
         background-color: #333;
         position: sticky;
         width: 100%;
-        
+        /* z-index: 1; */
         
       }
       
@@ -44,12 +47,24 @@ body{
       }
 
       .tapis{
+        gap: 30px;
+        transform: rotate(90deg);
+        grid-area:body;
         display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        background-image: url("./tapis.jpg");
+        /* display: flex;
         align-items: center;
         position: absolute;
         top: 50%;
         left: 50%;
+        right: 50%;
         transform: translate(-50%,-50%);
+        width: 600px; */
+
        
     }
     .carte img{
@@ -58,28 +73,80 @@ body{
         align-items: center;
     }
     .carte{
-        display: flex;
+        /* display: flex;
         justify-content: center;
-        gap: 9px;
+        gap: 9px; */
+        grid-area: leftSide; 
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        transform: rotate(90deg);
+        gap: 10px;
+        
     }
-
+    #reset{
+      width: 50%;
+      font-size:17px ;
+      color: blue;
+    }
+.active{
+  border-color: red;
+}
     .carteP img{
       height: 200px;
       width: 100px;
-      align-items: center;
+      /* align-items: center; */
   }
 
     
 
     .carteP{
+      grid-area: rightSide; 
+      gap: 10px;
       display: flex;
+      flex-direction: row;
+
+      align-items: center;
       justify-content: center;
-      gap: 9px;
+      transform: rotate(90deg);
+      /* gap: 9px;
       position: absolute;
       top: 63%;
       right: 40%;
-      z-index: -1;
+      z-index: -1; */
     }
- 
 
+    #allCards{
+      /* display: flex;
+      justify-content: center;
+      gap: 9px;
+      position: absolute;
+      top: 35%;
+      right: 20%; */
+    }
+
+
+  .cardTable {
+    /* z-index: 1; */
+    width: 100px;
+    height: 200px;
+    /* top: 35%;
+    right: 50%; */
+
+  }
+.contain{
+  width: 700x;
+  height: 600px;
+
+  display: grid;
+  grid:
   
+    "leftSide body rightSide" 1fr
+    "footer footer footer" auto
+    / auto 1fr auto;
+  gap: 8px;
+
+}
+
+
