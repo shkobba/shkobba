@@ -91,6 +91,4 @@ function shkobba(obj){
    }
 }
 
-function injectCards(obj){
-                                                    //
-}
+$("div-")
