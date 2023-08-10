@@ -1,0 +1,85 @@
+body{
+    background-image: url("https://w7.pngwing.com/pngs/762/546/png-transparent-wooden-background-wooden-table-wooden-background-board.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 150vh;
+}
+.navbar {
+    text-align: center ;
+    margin: auto;
+    width: 50%;
+    border: 3px ;
+    padding: 10px;
+    
+  }
+ 
+    
+    
+    ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #333;
+        position: sticky;
+        width: 100%;
+        
+        
+      }
+      
+      li {
+        float: left;
+      }
+      
+      li a {
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+      }
+      
+      li a:hover {
+        background-color: #111;
+      }
+
+      .tapis{
+        display: flex;
+        align-items: center;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+       
+    }
+    .carte img{
+        height: 200px;
+        width: 100px;
+        align-items: center;
+    }
+    .carte{
+        display: flex;
+        justify-content: center;
+        gap: 9px;
+    }
+
+    .carteP img{
+      height: 200px;
+      width: 100px;
+      align-items: center;
+  }
+
+    
+
+    .carteP{
+      display: flex;
+      justify-content: center;
+      gap: 9px;
+      position: absolute;
+      top: 63%;
+      right: 40%;
+      z-index: -1;
+    }
+ 
+
+  
