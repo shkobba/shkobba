@@ -455,10 +455,17 @@ function foundComboOfOneCard3(card,arr){
     return result 
 }
 
-
-
-function manger(obj,arrTable){
-  
-
+function shkobba(obj){
+   if(obj.jarya !== 0 && obj.table.length === 0){
+    if(obj.player.playerTurn){
+      obj.player.score++
+    }
+    else if(obj.computer.playerTurn){
+      obj.computer.score++
+    }
+   }
 }
 
+function injectCards(obj){
+                                                    //
+}
