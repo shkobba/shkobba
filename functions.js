@@ -72,28 +72,35 @@ function Game(){
    game.updatePlayerKafAndMekla  =updatePlayerKafAndMekla 
    game.getchoises=getchoises
    game.resetChoices=resetChoices
+  //  game.shuffle = shuffle
    
    // ki yefregh tablou twalli true 
   // game.checkCombo=checkCombo
    return  game
 }
+// function shuffle(){
+
+//   $('#shuffle').click(function(){
+//       if(this.player.kaf.length === 0 && this.computer.kaf.length === 0 ){
+//         onInitInject()
+//       }
+//   })
+// }
 function resetChoices(){
   this.player.currentCard=null
   this.player.choises=[]
 }
 
 function getchoises(e,id){
-  console.log("eele",e);
-$(`#${id}`).addClass("avtive");
-console.log("currentCard",this.player.currentCard);
-console.log("choises",this.player.choises);
+  // console.log("eele",e);
+$(`#${id}`).addClass("active");
 console.log(this.player.choises.indexOf(e)===-1&&this.player.currentCard);
-
-
 
 if(this.player.choises.indexOf(e)===-1&&this.player.currentCard){
   this.player.choises.push(e)
-  }
+}
+console.log("currentCard",this.player.currentCard);
+console.log("choises array",this.player.choises);
 
 }
 pickRandom = function(){
@@ -112,26 +119,38 @@ pickRandom = function(){
 function updatePlayerKafAndMekla(){
   var that=this
   var kafPlayerContainer=$('#player_Container')
-  console.log('kafPlayerContainer',kafPlayerContainer)
+  // console.log('mekla player',this.player.mekla)
   kafPlayerContainer.empty()
-  console.log("updatePlayerKafAndMekla",this.player.kaf)
+  // console.log("updatePlayerKafAndMekla",this.player.kaf)
   each(this.player.kaf,function(e){
-  console.log(e);
+  // console.log(e);
     var cid =e.type+e.num
     kafPlayerContainer.append(`<img  id="${cid}"  class="cardTablePlayer" alt="${cid}" src=${e.img}>`)
+    $(`#${cid}`).click(function(){
+      $(`#${cid}`).addClass("active2");
+      that.player.currentCard=e
+       setTimeout(function () {
+      that.playerRound(e,cid)
+    }, 5000);
+    })
   })
-  $(`#reset`).click(that.resetChoices)
-  console.log("inject",this.table)
+  // $(`#reset`).click(that.resetChoices)
+  // console.log("inject",this.table)
   $(".tapis").empty()
+  // console.log("this.table",this.table)
   each(this.table,function(e){
     var cardElement= e.type+e.num
     $(".tapis").append(`<img id=${cardElement} class="cardTable" src=${e.img}>`)
     $(`#${cardElement}`).click(function(){
-      that.getchoises(e)
+      that.getchoises(e,cardElement)
     })
   })
 }
 function updateComputerKafAndMekla(){
+  // if(this.player.kaf.length === 0 && this.computer.kaf.length === 0 ){
+  //   onInitInject()
+  //   return
+  // }
   var kafComputerContainer=$('#computer_Container')
   kafComputerContainer.empty()
   console.log("computer kaf", this.computer.kaf)
@@ -141,39 +160,48 @@ function updateComputerKafAndMekla(){
     var cid =e.type+e.num
     kafComputerContainer.append(`<img  id="${cid}" class="cardTableComputer" src="${e.img}">`)
   })
+
   $(".tapis").empty()
   each(this.table,function(e){
     $(".tapis").append(`<img class="cardTable" src=${e.img}>`)
   })
+
 }
-function playerRound(e){
-  this.player.currentCard=e
-  console.log("player")
+function playerRound(e,id){
 
+  console.log("elment",e)
+  // this.player.currentCard=e
+   console.log("table player",this.table)
   var currentCard=(this.player.kaf).indexOf(e)
-
   var copy=[...this.player.choises]
   var combo=foundComboOfOneCard3(this.player.currentCard,copy)
-  if(combo.length){
+  console.log("combo", combo)
+  if(combo&&combo.length!==0){
+    alert("it's combo")
+    console.log("innnnnnnnnnnnnnnn")
     for(var i = 0; i < combo.length; i++){
-      this.table.splice((this.table).indexOf(combo[i]),1)
-  
+      console.log("index splice",(this.table).indexOf(combo[i]))
+     this.table.splice((this.table).indexOf(combo[i]),1)
+      console.log('inside splice table', this.table )
     }
-    var spliced = this.player.kaf[currentCard]
-    this.player.kaf.splice(currentCard,1)
-    console.log(this.player.kaf)
-      this.player.mekla.push(spliced)
+    // var spliced =(this.player.kaf)[currentCard]
+    this.player.mekla.push(...this.player.choises)
+      this.player.kaf.splice(currentCard,1)
+    // console.log(this.player.kaf,currentCard)
+      this.player.mekla.push(e)
+    console.log("mekla",this.player.mekla)
       this.updatePlayerKafAndMekla()
-      this.computerRound()
+      this.resetChoices()
+       this.computerRound()
       return
 }
 
-alert("please choose the right combo")
-var spliced = this.player.kaf[currentCard]
-this.player.kaf.splice(currentCard,1)
+(this.player.kaf).splice(currentCard,1)
 console.log(this.player.kaf)
-  this.table.push(spliced)
+this.table.push(e)
+alert("please choose the right combo")
   this.updatePlayerKafAndMekla()
+  this.resetChoices()
   this.computerRound()
   return
 }
@@ -187,13 +215,18 @@ function computerRound(){
   var copy=[...this.table]
   var combo=foundComboOfOneCard3(this.computer.kaf[j],copy)
  
-  if(combo.length){
+  if(combo){
    for(var i = 0; i < combo.length; i++){
+    this.computer.mekla.push(...copy)
      this.table.splice((this.table).indexOf(combo[i]),1)
- 
-   }
-   console.log("table card", this.table)
 
+   
+   }
+   this.computer.kaf.splice(currentCard,1)
+   // console.log(this.computer.kaf,currentCard)
+     this.computer.mekla.push(this.computer.kaf[j])
+     this.updateComputerKafAndMekla()
+     return
   }
 
 }
@@ -201,7 +234,8 @@ var spliced = this.computer.kaf[this.computer.kaf.length-1]
 this.computer.kaf.splice(this.computer.kaf.length-1,1)
 this.table.push(spliced)
 this.updateComputerKafAndMekla()
- console.log(combo);
+return
+
 
 }
 // function checkCombo(){
@@ -235,10 +269,11 @@ function onInitInject(){
 
     kafPlayerContainer.append(`<img  id="${current}"  class="cardTablePlayer" alt="${current}" src=${e.img}>`)
   $(`#${current}`).click(function(){
-    that.player.currentCard=e
+   that.player.currentCard=e
+   $(`#${current}`).addClass("active2");
   setTimeout(function () {
-    that.playerRound(e)
-  }, 5000);
+    that.playerRound(e,current)
+  }, 10000);
   })
   })
   
@@ -246,9 +281,9 @@ function onInitInject(){
   
     var cid =e.type+e.num
     kafComputerContainer.append(`<img  id="${cid}" alt="${cid}" class="cardTableComputer" src="${e.img}">`)
-    $(`#${cid}`).click(function(){
-      that.computerRound(e)
-      })
+    // $(`#${cid}`).click(function(){
+    //   that.computerRound(e)
+    //   })
   })
 }
 
@@ -402,7 +437,11 @@ function tableReduce(card,table){
 
 }
 function eachCardReduce(kaf,table){ 
+
     var result = []
+    if(!kaf.length||!table.length){
+      return []
+    }
     for(var i = 0; i < kaf.length; i++){           // ta3mel reduce lel array trajja3 array of arrays
         result.push(tableReduce(kaf[i],table))
     }
